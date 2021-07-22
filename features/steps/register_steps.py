@@ -32,6 +32,7 @@ def enter_register_fields(context):
     context.registration_page = registration_page
 
     # filling user info
+    configs = context.configs
     registration_page.enter_first_name(configs.get_first_name(user_section_name))
     registration_page.enter_last_name(configs.get_last_name(user_section_name))
     registration_page.enter_email(configs.get_email(user_section_name))
@@ -49,6 +50,7 @@ def enter_register_fields(context):
 
 @when("user checks Yes/No radiobutton for subscription to the newsletter")
 def click_subscription_radiobutton(context):
+    configs = context.configs
     registration_page = context.registration_page
     if configs.get_subscription(user_section_name).lower() == "yes":
         registration_page.subscribe_btn.click()
@@ -76,4 +78,4 @@ def check_return_result_page(context):
     # assertion that the message appears that the account is successfully created
     assert registration_message.get_text() == 'Your Account Has Been Created!'
     time.sleep(2)
-    browser.shutdown()
+
